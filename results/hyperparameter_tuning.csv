@@ -1,3 +1,0 @@
-Model,Optimization_Metric,Best_CV_Score,Best_Params
-Logistic Regression + SMOTE,F1,0.4433009522972167,"{'smote__k_neighbors': 5, 'model__class_weight': 'balanced', 'model__C': 100}"
-Random Forest Baseline,ROC-AUC,0.82775670169266,"{'model__n_estimators': 100, 'model__min_samples_leaf': 10, 'model__max_depth': 16, 'model__class_weight': 'balanced'}"
