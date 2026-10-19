@@ -15,6 +15,8 @@ from sklearn.metrics import (
 from fairlearn.metrics import (
     MetricFrame,
     demographic_parity_difference,
+    true_positive_rate,
+    false_positive_rate,
     equalized_odds_difference
 )
 
@@ -224,3 +226,33 @@ g.fig.savefig(
 )
 
 plt.close("all")
+
+rf = models["Random Forest"]
+rf_predictions = rf.predict(X_test)
+
+age_frame = MetricFrame(
+    metrics={
+        "TPR": true_positive_rate,
+        "FPR": false_positive_rate
+    },
+    y_true=y_test,
+    y_pred=rf_predictions,
+    sensitive_features=age
+)
+
+print("\n--- RF AGE TPR / FPR ---")
+print(age_frame.by_group)
+
+tpr_gap = (
+    age_frame.by_group["TPR"].max()
+    - age_frame.by_group["TPR"].min()
+)
+
+fpr_gap = (
+    age_frame.by_group["FPR"].max()
+    - age_frame.by_group["FPR"].min()
+)
+
+print("\nTPR Gap:", tpr_gap)
+print("FPR Gap:", fpr_gap)
+print("Manuel EOD:", max(tpr_gap, fpr_gap))
