@@ -1,6 +1,6 @@
 .venv/
 __pycache__/
 *.pyc
-results/
 models/
+results/
 results_backup/
